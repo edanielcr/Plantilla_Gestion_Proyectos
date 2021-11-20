@@ -70,7 +70,7 @@
 Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios realizados} & Fecha      \\ \hline
 1.0      & Creación del documento                                 & 18/10/2021 \\ \hline
 1.1      & Se completa hasta el punto 5 inclusive                 & 04/11/2021 \\ \hline
-%2      & Se completa hasta el punto 7 inclusive
+1.2      & Se completa hasta el punto 12 inclusive                & 20/11/2021 \\ \hline
 %		  Se puede agregar algo más \newline
 %		  En distintas líneas \newline
 %		  Así                                                    & dd/mm/aaaa \\ \hline
@@ -92,7 +92,7 @@ Buenos Aires, \fechaInicioName
 
 \vspace{2cm}
 
-Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle''. Consistirá esencialmente en la implementación de un sistema para determinar la correspondencia de un recibo de pago con una factura determinada mediante el uso de algortimos de inteligencia artificial, y tendrá un presupuesto preliminar estimado de 600 hs de trabajo y USD 2000, con fecha de inicio \fechaInicioName\hspace{1px} y fecha de presentación pública \fechaFinalName.
+Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle''. Consistirá esencialmente en la implementación de un sistema para determinar la correspondencia de un recibo de pago con una factura determinada mediante el uso de algortimos de inteligencia artificial, y tendrá un presupuesto preliminar estimado de 612 hs de trabajo y USD 5563, con fecha de inicio \fechaInicioName\hspace{1px} y fecha de presentación pública \fechaFinalName.
 
 Se adjunta a esta acta la planificación inicial.
 
@@ -302,30 +302,263 @@ Para el desarrollo del presente proyecto se supone que:
 \section{6. Requerimientos}
 \label{sec:requerimientos}
 
+\begin{enumerate}
+	
+	\item Requerimientos funcionales:
+		\begin{enumerate}
+		\item Procesar documentos en formatos jpg, png, pdf y tiff.
+		\item Extraer caracteres de una factura.
+		\item Extraer caracteres de un recibo de pago.
+		\item Indentificar los campos clave de ambos documentos.
+		\item Almacenar la información en un archivo JSON.
+		\item Comparar los campos relevantes predefinidos en ambos documentos.
+		\item Enviar un mensaje de aprobación si los documentos coinciden, o rechazo en el caso contrario, en este último el mensaje debe informar el motivo del rechazo.
+		\item El procesamiento de las imagenes y la aprobación o rechazo no deber tardar más de 5 segundos.
+		
+		\end{enumerate}
+		
+	\item Requerimiento no funcionales:
+		\begin{enumerate}
+		\item El algoritmo debe ser compatible con la plataforma de Alquilado.
+		\item El algortimo debe ser escalable a otro tipo de documentos y formatos.	
+		
+		\end{enumerate}
+		
+	\item Requerimientos de documentación:
+		\begin{enumerate}
+		\item Generar una memoria técnica con la ingeniería detallada del proyecto.		
+		\end{enumerate}
+	\item Requerimientos asociados a las regulaciones:
+		\begin{enumerate}
+		\item Toda la documentación procesada por el algoritmo estará enmarcada en las políticas de confidencialidad de la información vigentes y adoptadas por la empresa Alquilando.
+		\end{enumerate}
+\end{enumerate}
+
 
 
 \section{7. Historias de usuarios (\textit{Product backlog})}
 \label{sec:backlog}
 
+Roles:
+\begin{itemize}
+
+	\item Product Owner: este rol está representado por el cliente del proyecto, quien es la persona encargada de verificar que las funcionalidades cumplan con las expectativas y necesidades de la empresa y sus clientes. Al mismo tiempo, presenta los avances y solicita los recursos necesarios para el desarrollo.
+	
+	\item Administrador del sistema: es la persona que se encarga de integrar el algortimo desarrollado con la plataforma de la empresa, aplicándolo al módulo de comprobantes (Uno de los módulos de la plataforma de Alquilando) y permitiendo que se conecte directamente con la base de datos de dónde se obtienen los documentos a ser procesados.
+	
+	\item Analista de soporte: esta persona verifica que el algortimo realiza eficientemente la moderación de comprobantes de facturas y recibos de pago, encuentra que solo debe intervenir en casos puntuales y que los reclamos de los clientes por errores o demoras en la moderación decrecen considerablemente.
+	
+	\item Administrador inmobiliario: es quien contrata los servicios de Alquilando, y desde la plataforma observa que al ingresar a cada uno de los inmuebles administrados encuentra que los comprobantes cargados por sus clientes están en los siguientes estados: aprobados, rechazados o por moderar, los rechazados indican el motivo de rechazo, los que se encuentre por moderar son aquellos que no pudieron ser procesados por el algoritmo.
+	
+	\item Cliente inmobiliario: es el inquilino o propietario del inmueble administrado por la inmobiliaria, esta persona ingresa a la plataforma y al cargar las facturas con su respectivo comprobante recibe rápidamente una notificación de aprobación, rechazo; indicando el motivo o por moderar; indicando que debe intervenir el agente inmobiliario.
+	
+\end{itemize}
+
+Historias de usuario:
+
+Las historias de usuario serán ponderadas a partir de la serie de Fibonacci, se usarán los números 8, 13 y 21, esto con base en la bibliografía disponible, los conocimientos y limitaciones sobre el tema.
+
+\begin{itemize}
+
+	\item Historia de 8 puntos: son aquellas en las cuales la dificultad, complejidad e incertidumbre son muy bajas, es decir, no requieren de conocimientos profundos ni de un equipo interdisciplinario, se tiene certeza del procedimiento y el resultado, el tiempo puede ser considerable pero el progreso de la tarea es exponencial.
+	
+	\item Historia de 13 puntos: son aquellas historias en donde debido a su grado de dificultad y complejidad se necesita asesoría de al menos un especialista en la materia,  que actue de consultor y/o supervisor periódicamente a lo largo del sprint, en esta historia existen algunas actividades correlativas que influyen directamente en el tiempo estimado de finalización.
+	
+	\item Historia de 21 puntos: el nivel de dificultad, complejidad e incertidumbre es alto en proporción a las demás historias, es necesario de la participación de un equipo con más de dos personas especialistas en diferentes temas, en esta historia deben trabajar conjunta y frecuentemente los diferentes participantes del proyecto, el avance en las tareas es lento y la gran mayoría son correlativas, se necesita de un análisis bibliográfico cuidadoso y profundo.
+	
+	
+\end{itemize}
+
+A continuación las historias de usuario:
+
+\begin{itemize}
+
+	\item Como product owner, quiero extraer información de los documentos cargados en el módulo de comprobantes de la plataforma, para luego analizarla.
+	
+	Ponderación: 21 puntos.
+	
+	\item Como product owner, quiero que la información extraída de los documentos cargados en el módulo de comprobantes, pueda ser comparada, para conocer el nivel de relación entre documentos.
+	
+	Ponderación: 21 puntos.
+	
+	\item Como product owner, quiero que el nivel de precisión al comparar dos documentos sea del 90\%, para poder considerar la incorporación del algoritmo.
+	
+	Ponderación: 21 puntos.
+	
+	\item Como administrador del sistema, quiero integrar un nuevo alqoritmo a la plataforma de Alquilando, que me permita actualizar el módulo de comprobantes, para automatizar la acción de moderación de facturas y comprobantes de pago.
+	
+	Ponderación: 13 puntos.
+	
+	\item Como administrador del sistema, quiero modificar el algoritmo del módulo de comprobantes para incoporar nuevas funcionalidades.
+	
+	Ponderación: 8 puntos.
+	
+	\item Como analista de soporte al cliente, quiero ingresar al back office del sistema y observar el estado de los comprobantes, para tener una visión general de la operación.
+	
+	Ponderación: 21 puntos.
+	
+	\item Como administrador de inmobiliaria, quiero ingresar a la plataforma de Alquilando y poder visualizar el estado de todos los comprobantes cargados por mis clientes, para conocer el estado de cuenta de mis administraciones.
+	
+	Ponderación: 21 puntos.
+	
+	\item Como administrador de inmobiliaria, quiero recibir un mensaje cuando los documentos no puedan ser procesados por el sistema, para poder intervenir rápidamente.
+	
+	Ponderación: 13 puntos.
+	
+	\item Como cliente de una inmobiliaria, quiero ingresar a la plataforma de Alquilando, cargar mi factura y su correspondiente recibo de pago, y recibir rápidamente una notificación de aprobación o rechazo, para saber si mi documento fue procesado.
+	
+	Ponderación: 13 puntos.
+	
+	\item Como cliente de una inmobiliaria, quiero recibir un mensaje con el motivo del rechazo de mi factura con su respectivo comprobante de pago, para saber qué hice mal.
+	
+	Ponderación: 21 puntos.
+	
+	\item Como cliente de una inmobiliaria, quiero ingresar a mi perfil dentro de la plataforma de Alquilando y verficar el estado de mis comprobantes de pago, para saber si tengo comprobantes pendientes de cargar.
+	
+	Ponderación: 8 puntos.
+	
+\end{itemize}
+
+
 
 \section{8. Entregables principales del proyecto}
 \label{sec:entregables}
+
+\begin{itemize}
+	\item Esquema del proceso de moderación de facturas y comprobantes de pago.
+	\item Código fuente.
+	\item Informe final.
+\end{itemize}
 
 
 \section{9. Desglose del trabajo en tareas}
 \label{sec:wbs}
 
+\begin{enumerate}
+\item \textbf{Planificación (16 hs)}
+
+	\begin{enumerate}
+	\item Elaboración del roadmap (8 hs)
+	\item Elaboración del journey (4 hs)
+	\item Definición de equipo (2 hs)
+	\item Estimación de recursos (2 hs)
+	\end{enumerate}
+	
+\item \textbf{Investigación (66 hs)}
+
+	\begin{enumerate}
+	\item Recopilación de bibliografía (20 hs)
+	\item Análisis de bibliografía (30 hs)
+	\item Definición de tecnología (4 hs)
+	\item Definición de metodología (2 h)
+	\end{enumerate}
+	
+\item \textbf{Desarrollo (460 hs)}
+
+	\begin{enumerate}
+	\item [3.1.] Preparación del dataset (110 hs)
+	
+		\begin{enumerate}
+		\item [3.1.1.]Colección y preparación de imágenes(30 hs)
+		\item [3.1.2.]Etiquetado de la imagen (40 hs)
+		\item [3.1.3.]Aumento de la imagen (40 hs)
+		\end{enumerate}
+
+	
+	\item [3.2.] Construcción del modelo (130 hs)
+	
+		\begin{enumerate}
+		\item [3.2.1.]Optimización (40 hs)
+		\item [3.2.2.]Hyper parametrización (30 hs)
+		\item [3.2.3.]Cálculo final de pérdida (20 hs)
+		\item [3.2.4.]Segmentación de imagen (40 hs)
+		\end{enumerate}
+		
+	\item [3.3.]Extracción de texto (80 hs)
+	
+		\begin{enumerate}
+		\item [3.3.1.]Preprocesamiento de imagen (40)
+		\item [3.3.2.]Extracción de contenido (40)
+		\end{enumerate}
+		
+	\item [3.4.]Clasificación de texto (140 hs)
+	
+		\begin{enumerate}
+		\item [3.4.1.]Preparación del dataset (30 hs)
+		\item [3.4.2.]Entrenamiento del modelo (40 hs)
+		\item [3.4.3.]Evaluación del modelo (40 hs)
+		\item [3.4.4.]Testing (40 hs)
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+\item \textbf{Presentación del proyecto (70 hs)}
+	\begin{enumerate}
+	\item Elaboración de informe de avance (30 hs)
+	\item Elaboración de memoria del proyecto (30 hs)
+	\item Elaboración de la presentación del proyecto (10 hs)
+	\end{enumerate}
+\end{enumerate}
+
+La cantidad total de horas estimadas para el proyecto son \textbf{612 h.}
+
+
 
 \section{10. Diagrama de Activity On Node}
 \label{sec:AoN}
 
+En el diagrama de \textit{Activity on Node}, se observa que existe una gran cantidad de tareas correlativas, lo que permite muy poco márgen de retraso e incrementa la cantidad de tiempo de la ruta crítica del proyecto, la cual, cuenta con una diferencia poco significativa con respecto a la duración total.
+\begin{itemize}
+	\item La duración total del proyecto es de \textbf{612 horas.}
+	\item La duración del camino crítico es de \textbf{592 horas.}
+	\item El márgen de retraso es de \textbf{20 horas.}
+\end{itemize} 
+
+A continuación, el diagrama de \textit{Activity on Node:}
+
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width=.8\textwidth]{./Figuras/AoN.jpg}
+\caption{Diagrama de \textit{Activity on Node}.}
+\label{fig:AoN}
+\end{figure}
+
+
+
+
 \section{11. Diagrama de Gantt}
 \label{sec:gantt}
+
+En el diagrama de Gantt, se observa que existen una gran cantidad de tareas correlativas, lo que respresenta un alto riesgo para el proyecto en cuanto a cumplimiento del plazo estipulado. Las características del proyecto y la tecnología usada, hace del \textit{output} de una tarea el \textit{input} de la siguiente.
+
+A continuación, el diagram de Gantt estimado para el proyecto:
+
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width=.9\textwidth]{./Figuras/Gantt_1.jpg}
+\caption{Diagrama de Gantt - Parte 1.}
+\label{fig:Gantt_1}
+\end{figure}
+
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width=.9\textwidth]{./Figuras/Gantt_2.jpg}
+\caption{Diagrama de Gantt - Parte 2.}
+\label{fig:Gantt_2}
+\end{figure}
+
 
 
 
 \section{12. Presupuesto detallado del proyecto}
 \label{sec:presupuesto}
+
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width=.8\textwidth]{./Figuras/Tabla_costos.jpg}
+\caption{Tabla de costos.}
+\label{fig:Tabla_costos}
+\end{figure}
 
 
 
